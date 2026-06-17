@@ -25,11 +25,11 @@
 // The StudentBadge component below is hardcoded — it always shows the same text.
 // we will update this soon.
 
-function StudentBadge() {
+function StudentBadge(props) {
   return (
     <div>
-      <h3>Student Name</h3>
-      <p>Grade: 0</p>
+      <h3>{props.name}</h3>
+      <p>Grade: {props.grade}</p>
     </div>
   )
 }
@@ -62,16 +62,28 @@ function SectionA() {
   //          Can you change a prop's value inside the component that receives it?
   //          Why or why not?
   //
-  //          answer:
+  //          answer: Props are how you pass data into a component frm the outside.
+  //                  No, props cannot have their value changed when inside hte component,
+  //                  because props are read-only.
+
+  function TeacherCard(props) {
+    return (
+      <div>
+        <h3>{props.name}</h3>
+        <p>Subject: {props.subject}</p>
+      </div>
+    )
+  }
 
   return (
     <div>
       <h2>Section A — Props</h2>
-      <StudentBadge />
+      <StudentBadge name="Alex" grade="C"/>
       {/* A1 + A2: Render two more StudentBadge components here */}
-
+      <StudentBadge name="Rehman" grade="A" />
+      <StudentBadge name="Mohammad" grade="B" />
       {/* A3: Render your TeacherCard here */}
-
+      <TeacherCard name="Ms. Adams" subject="Science" />
     </div>
   )
 }
@@ -99,7 +111,22 @@ function SectionA() {
 //       then embed that variable in your JSX.
 //
 // Write PlayerCard here:
+function PlayerCard(props) {
+  let status;
+  if (props.isActive) {
+    status = "Active";
+  } else {
+    status = "Inactive";
+  }
 
+  return (
+    <div>
+      <h3>{props.name}</h3>
+      <p>Score: {props.score}</p>
+      <p>Status: {status}</p>
+    </div>
+  )
+}
 
 
 function SectionB() {
@@ -112,7 +139,9 @@ function SectionB() {
     <div>
       <h2>Section B — Props with Different Types</h2>
       {/* Render your PlayerCard components here */}
-
+      <PlayerCard name="Rehman" score={100} isActive={true} />
+      <PlayerCard name="Mohammad" score={90} isActive={false} />
+      <PlayerCard name="Alex" score={80} isActive={true} />
     </div>
   )
 }
