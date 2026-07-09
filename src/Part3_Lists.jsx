@@ -47,7 +47,11 @@ function SectionA() {
   // EXPLAIN: Why does React require a key prop on each list item?
   //          What happens if two items share the same key?
   //
-  //          answer:
+  //          answer: React needs a key on each item in a mapped list so that it is able to track
+  //                  which items changed, add, or removed. If two items share the same key,
+  //                  React cannot tell the difference and will cause an error.
+
+  const highScores = players.filter(player => player.score > 30);
 
   return (
     <div>
@@ -55,11 +59,24 @@ function SectionA() {
       <h3>All Players</h3>
       <ul>
         {/* A1: map players here: */}
-
+        {players.map(player => {
+          return (
+            <li key={player.id}>
+              {player.name} - {player.score}
+            </li>
+          )
+        })}
       </ul>
 
       {/* A2: filtered list goes here: */}
-
+      <h3>Score above 30</h3>
+      <ul>
+        {highScores.map(player => {
+          return (
+            <li key={player.id}>{player.name} - {player.score}</li>   
+          )
+        })}
+      </ul>
     </div>
   )
 }
@@ -80,7 +97,13 @@ function SectionA() {
 //
 // Write PlayerRow here:
 
-
+function PlayerRow(props) {
+  return (
+    <div>
+      {props.name} - {props.score}
+    </div>
+  )
+}
 
 function SectionB() {
   // B2.
@@ -94,16 +117,24 @@ function SectionB() {
   // EXPLAIN: What is the advantage of rendering a component inside .map()
   //          compared to mapping to a plain HTML element like <li>?
   //
-  //          answer:
-
+  //          answer: The advantage of rendering a component inside .map()
+ //                   allows it to have its own layout, styling, and even its own internal
+ //                   internal logic. <li> is only a plain markup, and can't have
+ //                   its own strucutre and behavior. 
   return (
     <div>
       <h2>Section B — Lists and Components</h2>
       {/* B2: map PlayerRow components here */}
-
+      {players.map(player => {
+        return (
+          <PlayerRow key={player.id} name={player.name} score={player.score} />
+        )
+      })}
     </div>
   )
 }
+  
+
 
 
 // ------------------------------------------------------------
